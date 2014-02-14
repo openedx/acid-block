@@ -1,0 +1,2 @@
+recursive-include acid/static *
+recursive-include acid/public *

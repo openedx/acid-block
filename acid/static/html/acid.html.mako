@@ -6,6 +6,7 @@
     data-error-class="${error_class}"
     data-unknown-class="${unknown_class}"
     data-acid-child-count="${acid_child_count}"
+    data-local-resource-url="${local_resource_url}"
 >
     <script class="acid-child-values" type="application/json">
         ${json.dumps(acid_child_values)}
@@ -29,6 +30,11 @@
     </p>
     <p>Acid Child values match:
         <span class="child-values-match">
+            <i class="${unknown_class}"></i>
+        </span>
+    </p>
+    <p>Resource Url Test:
+        <span class="local-resource-test">
             <i class="${unknown_class}"></i>
         </span>
     </p>
