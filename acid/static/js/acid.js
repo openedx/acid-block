@@ -25,6 +25,20 @@ function AcidBlock(runtime, element) {
         }
     }
 
+    function resourceTests() {
+        $.get(acidData('local-resource-url'))
+            .fail(function() {
+                mark('failure', '.local-resource-test', element, 'Unable to load local resource');
+            })
+            .done(function(data) {
+                if (data.test_data == 'success') {
+                    mark('success', '.local-resource-test');
+                } else {
+                    mark('failure', '.local-resource-test', element, 'Data mismatch');
+                }
+            });
+    }
+
     function childTests() {
         if (acidData('acid-child-count') == runtime.children(element).length) {
             mark('success', '.child-counts-match');
@@ -84,6 +98,7 @@ function AcidBlock(runtime, element) {
         mark('success', '.document-ready-run');
 
         childTests();
+        resourceTests();
         scopeTests();
     });
 

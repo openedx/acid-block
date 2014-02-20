@@ -180,6 +180,7 @@ class AcidBlock(XBlock):
             acid_child_count=len([child for child in children if child.scope_ids.block_type == 'acid']),
             rendered_children=(fragment.content for fragment in rendered_children),
             storage_tests=scope_test_contexts,
+            local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
         ))
         frag.add_frags_resources(rendered_children)
 
