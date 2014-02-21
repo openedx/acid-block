@@ -40,8 +40,19 @@ function AcidBlock(runtime, element) {
     }
 
     function childTests() {
+        var acidChildCount = 0;
+        $.each(runtime.children(element), function(idx, child) {
+            if ('parentValue' in child) {
+                acidChildCount++;
+            }
+        })
+
+        if (acidData('acid-child-count') == acidChildCount) {
+            mark('success', '.acid-child-counts-match');
+        }
+
         if (acidData('acid-child-count') == runtime.children(element).length) {
-            mark('success', '.child-counts-match');
+            mark('success', '.all-child-counts-match');
         }
 
         var childValues = JSON.parse($('.acid-child-values', element).html());

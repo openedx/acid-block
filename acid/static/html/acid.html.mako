@@ -6,6 +6,7 @@
     data-error-class="${error_class}"
     data-unknown-class="${unknown_class}"
     data-acid-child-count="${acid_child_count}"
+    data-all-child-count="${all_child_count}"
     data-local-resource-url="${local_resource_url}"
 >
     <script class="acid-child-values" type="application/json">
@@ -24,7 +25,12 @@
         </span>
     </p>
     <p>Acid Child counts match:
-        <span class="child-counts-match">
+        <span class="acid-child-counts-match">
+            <i class="${unknown_class}"></i>
+        </span>
+    </p>
+    <p>All Child counts match:
+        <span class="all-child-counts-match">
             <i class="${unknown_class}"></i>
         </span>
     </p>
