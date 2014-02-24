@@ -94,13 +94,9 @@ function AcidBlock(runtime, element) {
 
     mark('success', '.js-init-run');
 
-    $(function ($) {
-        mark('success', '.document-ready-run');
+    childTests();
+    resourceTests();
+    scopeTests();
 
-        childTests();
-        resourceTests();
-        scopeTests();
-    });
-
-    return {parentValue: acidData('parent-value')}
+    return {parentValue: acidData('parent-value')};
 }
