@@ -18,11 +18,6 @@
             <i class="${unknown_class}"></i>
         </span>
     </p>
-    <p>Document-ready function run:
-        <span class="document-ready-run">
-            <i class="${unknown_class}"></i>
-        </span>
-    </p>
     <p>Acid Child counts match:
         <span class="child-counts-match">
             <i class="${unknown_class}"></i>
