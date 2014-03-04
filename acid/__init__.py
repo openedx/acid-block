@@ -1,1 +1,1 @@
-from .acid import AcidBlock
+from .acid import AcidBlock, AcidParentBlock
