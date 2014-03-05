@@ -29,6 +29,7 @@ setup(
     entry_points={
         'xblock.v1': [
             'acid = acid:AcidBlock',
+            'acid_parent = acid:AcidParentBlock',
         ],
     },
     package_data=package_data("acid", ["static", "public"]),

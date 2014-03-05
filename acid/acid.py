@@ -56,7 +56,7 @@ class AcidBlock(XBlock):
     """
     A testing block that checks the behavior of the container.
     """
-    has_children = True
+    has_children = False
 
     SUCCESS_CLASS = 'fa fa-check-square-o fa-lg pass'
     FAILURE_CLASS = 'fa fa-times fa-lg fail'
@@ -151,40 +151,18 @@ class AcidBlock(XBlock):
             except Exception:
                 logging.warning('Unable to use scope in acid test', exc_info=True)
 
-        # Save the changes to our fields so that they are visible to our children
-        self.save()
-
-        children = [
-            self.runtime.get_block(child_id)
-            for child_id in self.children
-        ]
-
-        rendered_children = [
-            self.runtime.render_child(child, view_name, context=context)
-            for child in children
-        ]
-
-        child_values = {
-            child.name: child.parent_value
-            for child in children
-            if child.scope_ids.block_type == 'acid' and child.name is not None
-        }
-
         frag = Fragment(self.render_template(
             'html/acid.html.mako',
             error_class=self.ERROR_CLASS,
             success_class=self.SUCCESS_CLASS,
             failure_class=self.FAILURE_CLASS,
             unknown_class=self.UNKNOWN_CLASS,
-            acid_child_values=child_values,
-            acid_child_count=len([child for child in children if child.scope_ids.block_type == 'acid']),
-            rendered_children=(fragment.content for fragment in rendered_children),
             storage_tests=scope_test_contexts,
             local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
         ))
-        frag.add_frags_resources(rendered_children)
 
         frag.add_javascript(self.resource_string("static/js/jquery.ajaxq-0.0.1.js"))
+        frag.add_javascript(self.resource_string('static/js/acid_update_status.js'))
         frag.add_javascript(self.resource_string('static/js/acid.js'))
         frag.add_css(self.resource_string("static/css/acid.css"))
         frag.add_css_url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
@@ -253,13 +231,78 @@ class AcidBlock(XBlock):
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
         return [
-            ("XBlock Acid test",
+            ("XBlock Acid single block test",
              """\
                 <vertical_demo>
-                    <acid name='parent'>
+                    <acid name='test'>
+                    </acid>
+                </vertical_demo>
+             """)
+        ]
+
+
+@generate_fields
+class AcidParentBlock(AcidBlock):
+    """
+    A testing block that checks the behavior of the container for a parent XBlock.
+    """
+    has_children = True
+
+    def fallback_view(self, view_name, context=None):               # pylint: disable=W0613
+        """
+        This view is used by the Acid XBlock to test various features of
+        the runtime it is contained in
+        """
+        acid_fragment = super(AcidParentBlock, self).fallback_view(view_name, context=context)
+
+        # Save the changes to our fields so that they are visible to our children
+        self.save()
+
+        children = [
+            self.runtime.get_block(child_id)
+            for child_id in self.children
+        ]
+
+        rendered_children = [
+            self.runtime.render_child(child, view_name, context=context)
+            for child in children
+        ]
+
+        child_values = {
+            child.name: child.parent_value
+            for child in children
+            if child.scope_ids.block_type == 'acid' and child.name is not None
+        }
+
+        frag = Fragment(self.render_template(
+            'html/acid_parent.html.mako',
+            error_class=self.ERROR_CLASS,
+            success_class=self.SUCCESS_CLASS,
+            failure_class=self.FAILURE_CLASS,
+            unknown_class=self.UNKNOWN_CLASS,
+            acid_html=acid_fragment.content,
+            acid_child_values=child_values,
+            acid_child_count=len([child for child in children if child.scope_ids.block_type == 'acid']),
+            rendered_children=(fragment.content for fragment in rendered_children),
+            local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
+        ))
+        frag.add_frag_resources(acid_fragment)
+        frag.add_frags_resources(rendered_children)
+        frag.add_javascript(self.resource_string('static/js/acid_parent.js'))
+        frag.initialize_js('AcidParentBlock')
+        return frag
+
+    @staticmethod
+    def workbench_scenarios():
+        """A canned scenario for display in the workbench."""
+        return [
+            ("XBlock Acid Parent test",
+             """\
+                <vertical_demo>
+                    <acid_parent name='parent'>
                         <acid name='left-child'/>
                         <acid name='right-child'/>
-                    </acid>
+                    </acid_parent>
                 </vertical_demo>
              """)
         ]
