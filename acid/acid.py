@@ -1,3 +1,4 @@
+# -*- coding:utf8 -*-
 """An XBlock checking container/block relationships for correctness."""
 
 import logging
@@ -60,6 +61,8 @@ class AcidSharedMixin(object):
     FAILURE_CLASS = 'fa fa-times fa-lg fail'
     ERROR_CLASS = 'fa fa-exclamation-triangle fa-lg error'
     UNKNOWN_CLASS = 'fa fa-question-circle fa-lg unknown'
+
+    UNIDATA = u"α¢ι∂ χвℓσ¢к"
 
     enabled_fields = Dict(
         help="Dictionary specifying which fields should be enabled for which views. If a view is left out, all fields are enabled",
@@ -165,6 +168,13 @@ class AcidSharedMixin(object):
                     suffix_value
                 )
             )
+
+        if 'UNIDATA' not in request.POST:
+            return FailureResponse('UNIDATA is missing from posted data')
+
+        unidata = request.POST['UNIDATA']
+        if unidata != self.UNIDATA:
+            return FailureResponse('UNIDATA is corrupted: {!r}'.format(unidata))
 
         if 'VALUE' not in request.POST:
             return FailureResponse('VALUE is missing from posted data')
