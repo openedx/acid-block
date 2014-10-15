@@ -11,7 +11,10 @@ function AcidParentBlock(runtime, element) {
     }
 
     function childTests() {
-        if (acidData('acid-child-count') === runtime.children(element).length) {
+        var acidChildCount = runtime.children(element).filter(function(child) {
+            return child.type == "acid";
+        }).length;
+        if (acidData('acid-child-count') == acidChildCount) {
             mark('success', '.child-counts-match');
         }
 
