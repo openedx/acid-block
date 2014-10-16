@@ -119,7 +119,7 @@ class AcidBlock(XBlock):
 
         # Retrieve the field named for the scope (whose value is a dictionary)
         # and add an entry for this block's usage_id, set to `new_value`.
-        getattr(self, scope)[str(self.scope_ids.usage_id)] = new_value
+        getattr(self, scope)[unicode(self.scope_ids.usage_id)] = new_value
 
         query = 'QUERY={}&SCOPE={}'.format(new_value, scope)
         suffix = 'SUFFIX{}'.format(new_value)
@@ -188,7 +188,7 @@ class AcidBlock(XBlock):
         if 'QUERY' not in request.GET:
             return FailureResponse("QUERY is missing from query parameters")
 
-        stored_value = getattr(self, scope).get(str(self.scope_ids.usage_id))
+        stored_value = getattr(self, scope).get(unicode(self.scope_ids.usage_id))
         query_value = int(request.GET['QUERY'])
 
         if stored_value != query_value:
