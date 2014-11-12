@@ -2,7 +2,7 @@
 function AcidBlock(runtime, element) {
 
     function acidData(key) {
-        return $('.acid-block', element).data(key);
+        return $('.acid-block, .aside-block', element).data(key);
     }
 
     function mark(result, selector, subelem, msg) {

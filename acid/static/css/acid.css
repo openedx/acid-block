@@ -2,6 +2,11 @@
     padding-left: 30px;
 }
 
+.aside-block {
+    padding-left: 8px;
+    font-size: smaller;
+}
+
 .fail {
     color: red;
 }
