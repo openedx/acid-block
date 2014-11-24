@@ -285,7 +285,7 @@ class AcidAside(XBlockAside, AcidSharedMixin):
         frag.add_javascript(self.resource_string('static/js/acid.js'))
         frag.add_css(self.resource_string("static/css/acid.css"))
         frag.add_css_url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-        frag.initialize_js('AcidBlock')
+        frag.initialize_js('AcidAsideBlock', {'test_aside': isinstance(block, AcidBlock)})
         return frag
 
 

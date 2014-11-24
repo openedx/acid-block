@@ -56,4 +56,5 @@
             </tr>
         % endfor
     </table>
+    <p>Sees Acid DOM: <span class="acid-dom"><i class="${unknown_class}"></i></span></p>
 </div>
