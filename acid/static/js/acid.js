@@ -75,6 +75,10 @@ function AcidAsideBlock(runtime, element, block_element, init_args) {
     AcidBlock.call(this, runtime, element);
     this.block_element = block_element;
     this.test_aside = init_args['test_aside']
+    $(element).find("div > button + div").toggle();
+    $(element).find("div > button").click(
+        function() { $(this).next("div").toggle(); }
+    )
     this.runTests();
 }
 AcidAsideBlock.prototype = Object.create(AcidBlock.prototype)
