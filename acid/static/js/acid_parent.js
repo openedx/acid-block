@@ -1,39 +1,42 @@
 /* Javascript for the Acid XBlock. */
 function AcidParentBlock(runtime, element) {
+    // this looks like but isn't really a subclass of AcidBlock
+    this.runtime = runtime;
+    this.element = element;
+    this.type = $(element).data('block-type');
 
-    function acidData(key) {
-        return $('.acid-parent-block', element).data(key);
-    }
+    var acid_frag_dom = $("> div > .acid-block", element);
+    this.acid_frag = new AcidBlock(runtime, element, {acid_data_ele: acid_frag_dom});
+    this.childTests();
+}
 
-    function mark(result, selector, subelem, msg) {
-        acid_update_status(selector, subelem, element, msg,
-            acidData(result + '-class'), acidData('error-class'));
-    }
+AcidParentBlock.prototype = {
+    acidData: function(key) {
+        return $(this.element).children('div[data-' + key + ']').data(key);
+    },
 
-    function childTests() {
-        var acidChildCount = runtime.children(element).filter(function(child) {
-            return child.type == "acid";
+    mark: function(result, selector, subelem, msg) {
+        acid_update_status(selector, subelem, this.element, msg,
+            this.acidData(result + '-class'), this.acidData('error-class'));
+    },
+    childTests: function(){
+        var acidChildCount = this.runtime.children(this.element).filter(function(child) {
+            return child.type === "acid";
         }).length;
-        if (acidData('acid-child-count') == acidChildCount) {
-            mark('success', '.child-counts-match');
-        }
-
-        var childValues = JSON.parse($('.acid-child-values', element).html());
+        this.mark((this.acidData('acid-child-count') == acidChildCount) ? 'success' : 'failure', '.child-counts-match');
+    
+        var childValues = JSON.parse($('.acid-child-values', this.element).html());
+        var that = this;
         $.each(childValues, function(name, value) {
-            var child_value = runtime.childMap(element, name).parentValue;
+            var child_value = that.runtime.childMap(that.element, name).parentValue;
             if (child_value !== value) {
-                mark(
-                    'failure', '.child-values-match', element,
+                that.mark(
+                    'failure', '.child-values-match', that.element,
                     'Child ' + name + ' had value ' + child_value + ' but expected ' + value
                 );
                 return;
             }
         });
-        mark('success', '.child-values-match');
+        this.mark('success', '.child-values-match');
     }
-
-    AcidBlock(runtime, element);
-    childTests();
-
-    return {parentValue: acidData('parent-value')};
 }
