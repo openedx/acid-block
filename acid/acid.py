@@ -7,8 +7,8 @@ import webob
 from lazy import lazy
 from mako.lookup import TemplateLookup
 
-from xblock.core import XBlock
-from xblock.fields import Scope, Dict, Boolean
+from xblock.core import XBlock, XBlockAside
+from xblock.fields import Scope, Dict
 from xblock.fragment import Fragment
 
 
@@ -52,12 +52,10 @@ class FailureResponse(webob.Response):
 
 
 @generate_fields
-class AcidBlock(XBlock):
+class AcidSharedMixin(object):
     """
     A testing block that checks the behavior of the container.
     """
-    has_children = False
-
     SUCCESS_CLASS = 'fa fa-check-square-o fa-lg pass'
     FAILURE_CLASS = 'fa fa-times fa-lg fail'
     ERROR_CLASS = 'fa fa-exclamation-triangle fa-lg error'
@@ -83,13 +81,6 @@ class AcidBlock(XBlock):
         Render the template at `path`, supplying `kwargs`.
         """
         return self.template_lookup.get_template(path).render_unicode(**kwargs)
-
-    @lazy
-    def parent_value(self):
-        """
-        This value is used to test that AcidBlock are visible to their parents.
-        """
-        return random.randint(0, 9999)
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -131,43 +122,6 @@ class AcidBlock(XBlock):
             'suffix': suffix,
             'handler_url': self.runtime.handler_url(self, 'check_storage', suffix, query)
         }
-
-    def fallback_view(self, view_name, context=None):               # pylint: disable=W0613
-        """
-        This view is used by the Acid XBlock to test various features of
-        the runtime it is contained in
-        """
-        scopes = (
-            scope
-            for scope in Scope.scopes()
-            if (view_name not in self.enabled_fields
-                or scope.name in self.enabled_fields[view_name])
-        )
-
-        scope_test_contexts = []
-        for scope in scopes:
-            try:
-                scope_test_contexts.append(self.setup_storage(scope.name))
-            except Exception:
-                logging.warning('Unable to use scope in acid test', exc_info=True)
-
-        frag = Fragment(self.render_template(
-            'html/acid.html.mako',
-            error_class=self.ERROR_CLASS,
-            success_class=self.SUCCESS_CLASS,
-            failure_class=self.FAILURE_CLASS,
-            unknown_class=self.UNKNOWN_CLASS,
-            storage_tests=scope_test_contexts,
-            local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
-        ))
-
-        frag.add_javascript(self.resource_string("static/js/jquery.ajaxq-0.0.1.js"))
-        frag.add_javascript(self.resource_string('static/js/acid_update_status.js'))
-        frag.add_javascript(self.resource_string('static/js/acid.js'))
-        frag.add_css(self.resource_string("static/css/acid.css"))
-        frag.add_css_url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
-        frag.initialize_js('AcidBlock')
-        return frag
 
     @XBlock.handler
     def check_storage(self, request, suffix=''):
@@ -227,6 +181,57 @@ class AcidBlock(XBlock):
 
         return SuccessResponse(self.setup_storage(scope))
 
+
+class AcidBlock(XBlock, AcidSharedMixin):
+    """
+    A testing block that checks the behavior of the container. The XBlock specific aspects
+    """
+    has_children = False
+
+    @lazy
+    def parent_value(self):
+        """
+        This value is used to test that AcidBlock are visible to their parents.
+        """
+        return random.randint(0, 9999)
+
+    def fallback_view(self, view_name, context=None):  # pylint: disable=W0613
+        """
+        This view is used by the Acid XBlock to test various features of
+        the runtime it is contained in
+        """
+        scopes = (
+            scope
+            for scope in Scope.scopes()
+            if (view_name not in self.enabled_fields
+                or scope.name in self.enabled_fields[view_name])
+        )
+
+        scope_test_contexts = []
+        for scope in scopes:
+            try:
+                scope_test_contexts.append(self.setup_storage(scope.name))
+            except Exception:
+                logging.warning('Unable to use scope in acid test', exc_info=True)
+
+        frag = Fragment(self.render_template(
+            'html/acid.html.mako',
+            error_class=self.ERROR_CLASS,
+            success_class=self.SUCCESS_CLASS,
+            failure_class=self.FAILURE_CLASS,
+            unknown_class=self.UNKNOWN_CLASS,
+            storage_tests=scope_test_contexts,
+            local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
+        ))
+
+        frag.add_javascript(self.resource_string("static/js/jquery.ajaxq-0.0.1.js"))
+        frag.add_javascript(self.resource_string('static/js/acid_update_status.js'))
+        frag.add_javascript(self.resource_string('static/js/acid.js'))
+        frag.add_css(self.resource_string("static/css/acid.css"))
+        frag.add_css_url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
+        frag.initialize_js('AcidBlock')
+        return frag
+
     @staticmethod
     def workbench_scenarios():
         """A canned scenario for display in the workbench."""
@@ -239,6 +244,49 @@ class AcidBlock(XBlock):
                 </vertical_demo>
              """)
         ]
+
+
+class AcidAside(XBlockAside, AcidSharedMixin):
+    """
+    A testing aside
+    """
+    @XBlockAside.aside_for('student_view')
+    def aside_view(self, block, context=None):
+        """
+        This view is used by the Acid Aside to test various features of
+        the runtime it is contained in
+        """
+        scopes = (
+            scope
+            for scope in Scope.scopes()
+            if scope.name in self.enabled_fields['student_view']
+        )
+
+        scope_test_contexts = []
+        for scope in scopes:
+            try:
+                scope_test_contexts.append(self.setup_storage(scope.name))
+            except Exception:
+                logging.warning('Unable to use scope in acid test', exc_info=True)
+
+        frag = Fragment(self.render_template(
+            'html/aside.html.mako',
+            usage_id=block.scope_ids.usage_id,
+            error_class=self.ERROR_CLASS,
+            success_class=self.SUCCESS_CLASS,
+            failure_class=self.FAILURE_CLASS,
+            unknown_class=self.UNKNOWN_CLASS,
+            storage_tests=scope_test_contexts,
+            local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
+        ))
+
+        frag.add_javascript(self.resource_string("static/js/jquery.ajaxq-0.0.1.js"))
+        frag.add_javascript(self.resource_string('static/js/acid_update_status.js'))
+        frag.add_javascript(self.resource_string('static/js/acid.js'))
+        frag.add_css(self.resource_string("static/css/acid.css"))
+        frag.add_css_url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
+        frag.initialize_js('AcidAsideBlock', {'test_aside': isinstance(block, AcidBlock)})
+        return frag
 
 
 @generate_fields

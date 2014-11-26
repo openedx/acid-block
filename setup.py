@@ -31,6 +31,9 @@ setup(
             'acid = acid:AcidBlock',
             'acid_parent = acid:AcidParentBlock',
         ],
+        'xblock_asides.v1': [
+            'acid_aside = acid:AcidAside',
+        ]
     },
     package_data=package_data("acid", ["static", "public"]),
 )
