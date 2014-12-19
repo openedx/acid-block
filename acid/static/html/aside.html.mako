@@ -1,6 +1,6 @@
 <%! import json %>
 
-<div class="aside-block"
+<div class="acid-block aside-block"
     data-success-class="${success_class}"
     data-failure-class="${failure_class}"
     data-error-class="${error_class}"

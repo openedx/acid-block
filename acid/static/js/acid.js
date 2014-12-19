@@ -92,7 +92,7 @@ function AcidAsideBlock(runtime, element, block_element, init_args) {
 AcidAsideBlock.prototype = Object.create(AcidBlock.prototype);
 AcidAsideBlock.prototype.runTests = function() {
     if (this.test_aside) {
-        if (this.block_element.data('block-type') === 'acid') {
+        if ($(this.block_element).data('block-type') === 'acid') {
             this.mark('success', '.acid-dom', $(this.element));
         } else {
             this.mark('failure', '.acid-dom', $(this.element));
