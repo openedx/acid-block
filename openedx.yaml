@@ -2,7 +2,8 @@
 # http://open-edx-proposals.readthedocs.io/en/latest/oeps/oep-0002.html#specification
 
 nick: acid
-oeps: {}
+oeps:
+  oep-7: True
 owner: edx/platform-team
 tags: [xblock]
 track-pulls: true
