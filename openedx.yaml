@@ -4,6 +4,7 @@
 nick: acid
 oeps:
   oep-7: True
+  oep-18: True
 owner: edx/platform-team
 tags: [xblock]
 track-pulls: true
