@@ -1,0 +1,6 @@
+# Core requirements for using this package
+-c constraints.txt
+
+XBlock
+Mako
+lazy
