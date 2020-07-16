@@ -3,6 +3,12 @@
 # C extensions
 *.so
 
+# JetBrains
+.idea
+
+# QA
+coverage.xml
+
 # Packages
 *.egg
 *.egg-info

@@ -1,0 +1,4 @@
+# Requirements for test runs.
+
+edx-lint
+pytest-cov                # pytest extension for code coverage statistics
