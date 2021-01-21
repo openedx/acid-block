@@ -1,6 +1,5 @@
 """An XBlock checking container/block relationships for correctness."""
 
-from __future__ import absolute_import
 import logging
 import pkg_resources
 import random
@@ -21,7 +20,7 @@ def generate_fields(cls):
     """
     for scope in Scope.scopes():
         setattr(cls, scope.name, Dict(
-            help="Values stored in the {} scope".format(scope),
+            help=f"Values stored in the {scope} scope",
             scope=scope
         ))
 
@@ -38,7 +37,7 @@ class SuccessResponse(webob.Response):
             data (dict): The data to return to the client (must be jsonable)
         """
         data['status'] = 'ok'
-        super(SuccessResponse, self).__init__(json=data)
+        super().__init__(json=data)
 
 
 class FailureResponse(webob.Response):
@@ -50,11 +49,11 @@ class FailureResponse(webob.Response):
         Args:
             message (str): The error message to return to the client
         """
-        super(FailureResponse, self).__init__(json={'status': 'error', 'message': message})
+        super().__init__(json={'status': 'error', 'message': message})
 
 
 @generate_fields
-class AcidSharedMixin(object):
+class AcidSharedMixin:
     """
     A testing block that checks the behavior of the container.
     """
@@ -112,10 +111,10 @@ class AcidSharedMixin(object):
 
         # Retrieve the field named for the scope (whose value is a dictionary)
         # and add an entry for this block's usage_id, set to `new_value`.
-        getattr(self, scope)[six.text_type(self.scope_ids.usage_id)] = new_value
+        getattr(self, scope)[str(self.scope_ids.usage_id)] = new_value
 
-        query = 'QUERY={}&SCOPE={}'.format(new_value, scope)
-        suffix = 'SUFFIX{}'.format(new_value)
+        query = f'QUERY={new_value}&SCOPE={scope}'
+        suffix = f'SUFFIX{new_value}'
 
         return {
             'scope': scope,
@@ -144,7 +143,7 @@ class AcidSharedMixin(object):
         if 'QUERY' not in request.GET:
             return FailureResponse("QUERY is missing from query parameters")
 
-        stored_value = getattr(self, scope).get(six.text_type(self.scope_ids.usage_id))
+        stored_value = getattr(self, scope).get(str(self.scope_ids.usage_id))
         query_value = int(request.GET['QUERY'])
 
         if stored_value != query_value:
@@ -156,7 +155,7 @@ class AcidSharedMixin(object):
             )
 
         if not suffix.startswith("SUFFIX"):
-            return FailureResponse("suffix is wrong: {!r}".format(suffix))
+            return FailureResponse(f"suffix is wrong: {suffix!r}")
 
         suffix_value = int(suffix[6:])
 
@@ -303,7 +302,7 @@ class AcidParentBlock(AcidBlock):
         This view is used by the Acid XBlock to test various features of
         the runtime it is contained in
         """
-        acid_fragment = super(AcidParentBlock, self).fallback_view(view_name, context=context)
+        acid_fragment = super().fallback_view(view_name, context=context)
 
         # Save the changes to our fields so that they are visible to our children
         self.save()
