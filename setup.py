@@ -4,6 +4,7 @@ import os
 
 from setuptools import setup
 
+
 def package_data(pkg, roots):
     """Generic function to find package_data for `pkg` under `root`."""
     data = []
@@ -13,6 +14,7 @@ def package_data(pkg, roots):
                 data.append(os.path.relpath(os.path.join(dirname, fname), pkg))
 
     return {pkg: data}
+
 
 def load_requirements(*requirements_paths):
     """
@@ -29,6 +31,9 @@ def load_requirements(*requirements_paths):
     return list(requirements)
 
 
+README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
+
+
 def is_requirement(line):
     """
     Return True if the requirement line is a package requirement;
@@ -36,13 +41,20 @@ def is_requirement(line):
     """
     return line and not line.startswith(('-r', '#', '-e', 'git+', '-c'))
 
+
 setup(
     name='acid-xblock',
-    version='0.1',
+    version='0.2',
     description='Acid XBlock Test',
+    long_description=README,
+    long_description_content_type='text/markdown',
+    author='edX',
+    author_email='oscm@edx.org',
+    url='https://github.com/edx/acid-block',
     packages=[
         'acid',
     ],
+    include_package_data=True,
     install_requires=load_requirements('requirements/base.in'),
     entry_points={
         'xblock.v1': [
@@ -54,4 +66,12 @@ setup(
         ]
     },
     package_data=package_data("acid", ["static", "public"]),
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: Apache Software License',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.8',
+    ]
 )
