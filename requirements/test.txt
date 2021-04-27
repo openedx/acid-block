@@ -43,7 +43,7 @@ mccabe==0.6.1
     # via pylint
 packaging==20.9
     # via pytest
-pbr==5.5.1
+pbr==5.6.0
     # via stevedore
 pluggy==0.13.1
     # via pytest
@@ -57,7 +57,7 @@ pylint-plugin-utils==0.6
     # via
     #   pylint-celery
     #   pylint-django
-pylint==2.8.1
+pylint==2.8.2
     # via
     #   edx-lint
     #   pylint-celery

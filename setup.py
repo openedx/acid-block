@@ -44,7 +44,7 @@ def is_requirement(line):
 
 setup(
     name='acid-xblock',
-    version='0.2',
+    version='0.2.1',
     description='Acid XBlock Test',
     long_description=README,
     long_description_content_type='text/markdown',
