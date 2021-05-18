@@ -14,7 +14,7 @@ lxml==4.6.3
     # via xblock
 mako==1.1.4
     # via -r requirements/base.in
-markupsafe==1.1.1
+markupsafe==2.0.0
     # via
     #   mako
     #   xblock
@@ -26,7 +26,7 @@ pytz==2021.1
     #   xblock
 pyyaml==5.4.1
     # via xblock
-six==1.15.0
+six==1.16.0
     # via
     #   fs
     #   python-dateutil
