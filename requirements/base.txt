@@ -14,7 +14,7 @@ lxml==4.6.3
     # via xblock
 mako==1.1.4
     # via -r requirements/base.in
-markupsafe==1.1.1
+markupsafe==2.0.1
     # via
     #   mako
     #   xblock
@@ -26,16 +26,15 @@ pytz==2021.1
     #   xblock
 pyyaml==5.4.1
     # via xblock
-six==1.15.0
+six==1.16.0
     # via
     #   fs
     #   python-dateutil
-    #   xblock
 web-fragments==1.0.0
     # via xblock
 webob==1.8.7
     # via xblock
-xblock==1.4.0
+xblock==1.4.2
     # via -r requirements/base.in
 
 # The following packages are considered to be unsafe in a requirements file:
