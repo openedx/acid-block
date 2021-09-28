@@ -21,7 +21,7 @@ code-annotations==1.2.0
     # via edx-lint
 coverage==5.5
     # via pytest-cov
-edx-lint==5.1.0
+edx-lint==5.2.0
     # via -r requirements/test.in
 iniconfig==1.1.1
     # via pytest
@@ -39,7 +39,7 @@ packaging==21.0
     # via pytest
 pbr==5.6.0
     # via stevedore
-platformdirs==2.3.0
+platformdirs==2.4.0
     # via pylint
 pluggy==1.0.0
     # via pytest
