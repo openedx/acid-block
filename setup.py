@@ -70,6 +70,20 @@ def load_requirements(*requirements_paths):
     return constrained_requirements
 
 
+def get_version(file_path):
+    """
+    Extract the version string from the file at the given relative path fragments.
+    """
+    filename = os.path.join(os.path.dirname(__file__), file_path)
+    with open(filename, encoding='utf-8') as opened_file:
+        version_file = opened_file.read()
+        version_match = re.search(r"(?m)^__version__ = ['\"]([^'\"]+)['\"]", version_file)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError('Unable to find version string.')
+
+
+VERSION = get_version("acid/__init__.py")
 README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 
 
@@ -88,7 +102,7 @@ def is_requirement(line):
 
 setup(
     name='acid-xblock',
-    version='0.2.1',
+    version=VERSION,
     description='Acid XBlock Test',
     long_description=README,
     long_description_content_type='text/markdown',
