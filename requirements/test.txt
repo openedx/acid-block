@@ -4,11 +4,11 @@
 #
 #    make upgrade
 #
-astroid==2.9.0
+astroid==2.9.3
     # via
     #   pylint
     #   pylint-celery
-attrs==21.2.0
+attrs==21.4.0
     # via pytest
 click==8.0.3
     # via
@@ -29,7 +29,7 @@ isort==5.10.1
     # via pylint
 jinja2==3.0.3
     # via code-annotations
-lazy-object-proxy==1.6.0
+lazy-object-proxy==1.7.1
     # via astroid
 markupsafe==2.0.1
     # via jinja2
@@ -39,7 +39,7 @@ packaging==21.3
     # via pytest
 pbr==5.8.0
     # via stevedore
-platformdirs==2.4.0
+platformdirs==2.4.1
     # via pylint
 pluggy==1.0.0
     # via pytest
@@ -53,9 +53,9 @@ pylint==2.12.2
     #   pylint-plugin-utils
 pylint-celery==0.3
     # via edx-lint
-pylint-django==2.4.4
+pylint-django==2.5.0
     # via edx-lint
-pylint-plugin-utils==0.6
+pylint-plugin-utils==0.7
     # via
     #   pylint-celery
     #   pylint-django
@@ -79,7 +79,7 @@ toml==0.10.2
     # via
     #   pylint
     #   pytest
-tomli==1.2.2
+tomli==2.0.0
     # via coverage
 typing-extensions==4.0.1
     # via
