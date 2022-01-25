@@ -10,7 +10,7 @@ fs==2.4.14
     # via xblock
 lazy==1.4
     # via -r requirements/base.in
-lxml==4.6.4
+lxml==4.7.1
     # via xblock
 mako==1.1.6
     # via -r requirements/base.in
@@ -30,7 +30,7 @@ six==1.16.0
     # via
     #   fs
     #   python-dateutil
-web-fragments==1.1.0
+web-fragments==2.0.0
     # via xblock
 webob==1.8.7
     # via xblock
