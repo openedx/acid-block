@@ -108,7 +108,7 @@ setup(
     long_description_content_type='text/markdown',
     author='edX',
     author_email='oscm@edx.org',
-    url='https://github.com/edx/acid-block',
+    url='https://github.com/openedx/acid-block',
     packages=[
         'acid',
     ],
