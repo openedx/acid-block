@@ -4,11 +4,11 @@
 #
 #    make upgrade
 #
-astroid==2.11.6
+astroid==2.12.13
     # via
     #   pylint
     #   pylint-celery
-attrs==21.4.0
+attrs==22.1.0
     # via pytest
 click==8.1.3
     # via
@@ -19,19 +19,21 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==1.3.0
     # via edx-lint
-coverage[toml]==6.4.1
+coverage[toml]==6.5.0
     # via pytest-cov
-dill==0.3.5.1
+dill==0.3.6
     # via pylint
-edx-lint==5.2.4
+edx-lint==5.3.0
     # via -r requirements/test.in
+exceptiongroup==1.0.4
+    # via pytest
 iniconfig==1.1.1
     # via pytest
 isort==5.10.1
     # via pylint
 jinja2==3.1.2
     # via code-annotations
-lazy-object-proxy==1.7.1
+lazy-object-proxy==1.8.0
     # via astroid
 markupsafe==2.1.1
     # via jinja2
@@ -39,15 +41,13 @@ mccabe==0.7.0
     # via pylint
 packaging==21.3
     # via pytest
-pbr==5.9.0
+pbr==5.11.0
     # via stevedore
-platformdirs==2.5.2
+platformdirs==2.5.4
     # via pylint
 pluggy==1.0.0
     # via pytest
-py==1.11.0
-    # via pytest
-pylint==2.14.3
+pylint==2.15.6
     # via
     #   edx-lint
     #   pylint-celery
@@ -63,17 +63,17 @@ pylint-plugin-utils==0.7
     #   pylint-django
 pyparsing==3.0.9
     # via packaging
-pytest==7.1.2
+pytest==7.2.0
     # via pytest-cov
-pytest-cov==3.0.0
+pytest-cov==4.0.0
     # via -r requirements/test.in
-python-slugify==6.1.2
+python-slugify==7.0.0
     # via code-annotations
 pyyaml==6.0
     # via code-annotations
 six==1.16.0
     # via edx-lint
-stevedore==3.5.0
+stevedore==4.1.1
     # via code-annotations
 text-unidecode==1.3
     # via python-slugify
@@ -82,14 +82,11 @@ tomli==2.0.1
     #   coverage
     #   pylint
     #   pytest
-tomlkit==0.11.0
+tomlkit==0.11.6
     # via pylint
-typing-extensions==4.2.0
+typing-extensions==4.4.0
     # via
     #   astroid
     #   pylint
 wrapt==1.14.1
     # via astroid
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
