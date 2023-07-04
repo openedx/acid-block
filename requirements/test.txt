@@ -23,7 +23,7 @@ dill==0.3.6
     # via pylint
 edx-lint==5.3.4
     # via -r requirements/test.in
-exceptiongroup==1.1.1
+exceptiongroup==1.1.2
     # via pytest
 iniconfig==2.0.0
     # via pytest
@@ -80,7 +80,7 @@ tomli==2.0.1
     #   pytest
 tomlkit==0.11.8
     # via pylint
-typing-extensions==4.6.3
+typing-extensions==4.7.1
     # via
     #   astroid
     #   pylint
