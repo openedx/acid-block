@@ -8,7 +8,7 @@ astroid==2.15.6
     # via
     #   pylint
     #   pylint-celery
-click==8.1.6
+click==8.1.7
     # via
     #   click-log
     #   code-annotations
@@ -17,13 +17,13 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==1.5.0
     # via edx-lint
-coverage[toml]==7.2.7
+coverage[toml]==7.3.0
     # via pytest-cov
 dill==0.3.7
     # via pylint
 edx-lint==5.3.4
     # via -r requirements/test.in
-exceptiongroup==1.1.2
+exceptiongroup==1.1.3
     # via pytest
 iniconfig==2.0.0
     # via pytest
@@ -41,11 +41,11 @@ packaging==23.1
     # via pytest
 pbr==5.11.1
     # via stevedore
-platformdirs==3.9.1
+platformdirs==3.10.0
     # via pylint
-pluggy==1.2.0
+pluggy==1.3.0
     # via pytest
-pylint==2.17.4
+pylint==2.17.5
     # via
     #   edx-lint
     #   pylint-celery
@@ -78,7 +78,7 @@ tomli==2.0.1
     #   coverage
     #   pylint
     #   pytest
-tomlkit==0.11.8
+tomlkit==0.12.1
     # via pylint
 typing-extensions==4.7.1
     # via
