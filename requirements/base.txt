@@ -8,7 +8,7 @@ appdirs==1.4.4
     # via fs
 fs==2.4.16
     # via xblock
-lazy==1.5
+lazy==1.6
     # via -r requirements/base.in
 lxml==4.9.3
     # via xblock
