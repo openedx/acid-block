@@ -10,7 +10,7 @@ fs==2.4.16
     # via xblock
 lazy==1.6
     # via -r requirements/base.in
-lxml==4.9.3
+lxml==5.0.0
     # via xblock
 mako==1.3.0
     # via
