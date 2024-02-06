@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==3.0.2
+astroid==3.0.3
     # via
     #   pylint
     #   pylint-celery
@@ -15,7 +15,7 @@ click==8.1.7
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==1.5.0
+code-annotations==1.6.0
     # via edx-lint
 coverage[toml]==7.4.1
     # via
@@ -33,7 +33,7 @@ isort==5.13.2
     # via pylint
 jinja2==3.1.3
     # via code-annotations
-markupsafe==2.1.4
+markupsafe==2.1.5
     # via jinja2
 mccabe==0.7.0
     # via pylint
@@ -41,7 +41,7 @@ packaging==23.2
     # via pytest
 pbr==6.0.0
     # via stevedore
-platformdirs==4.1.0
+platformdirs==4.2.0
     # via pylint
 pluggy==1.4.0
     # via pytest
@@ -63,7 +63,7 @@ pytest==8.0.0
     # via pytest-cov
 pytest-cov==4.1.0
     # via -r requirements/test.in
-python-slugify==8.0.2
+python-slugify==8.0.3
     # via code-annotations
 pyyaml==6.0.1
     # via code-annotations
