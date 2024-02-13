@@ -63,7 +63,7 @@ pytest==8.0.0
     # via pytest-cov
 pytest-cov==4.1.0
     # via -r requirements/test.in
-python-slugify==8.0.3
+python-slugify==8.0.4
     # via code-annotations
 pyyaml==6.0.1
     # via code-annotations
