@@ -1,16 +1,15 @@
 """An XBlock checking container/block relationships for correctness."""
 
 import logging
-import pkg_resources
 import random
+
+import pkg_resources
 import webob
 from lazy import lazy
 from mako.lookup import TemplateLookup
-
+from web_fragments.fragment import Fragment
 from xblock.core import XBlock, XBlockAside
-from xblock.fields import Scope, Dict
-from xblock.fragment import Fragment
-import six
+from xblock.fields import Dict, Scope
 
 
 def generate_fields(cls):
