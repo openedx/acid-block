@@ -1,16 +1,15 @@
 """An XBlock checking container/block relationships for correctness."""
 
 import logging
-import pkg_resources
 import random
+
+import pkg_resources
 import webob
 from lazy import lazy
 from mako.lookup import TemplateLookup
-
+from web_fragments.fragment import Fragment
 from xblock.core import XBlock, XBlockAside
-from xblock.fields import Scope, Dict
-from xblock.fragment import Fragment
-import six
+from xblock.fields import Dict, Scope
 
 
 def generate_fields(cls):
@@ -335,8 +334,11 @@ class AcidParentBlock(AcidBlock):
             rendered_children=(fragment.content for fragment in rendered_children),
             local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
         ))
-        frag.add_frag_resources(acid_fragment)
-        frag.add_frags_resources(rendered_children)
+        frag.add_fragment_resources(acid_fragment)
+
+        for rendered_child in rendered_children:
+            frag.add_fragment_resources(rendered_child)
+
         frag.add_javascript(self.resource_string('static/js/acid_parent.js'))
         frag.initialize_js('AcidParentBlock')
         return frag
