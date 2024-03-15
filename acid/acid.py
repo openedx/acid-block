@@ -11,9 +11,9 @@ from xblock.core import XBlock, XBlockAside
 from xblock.fields import Dict, Scope
 
 try:
-    from xblock.fragment import Fragment
-except:
     from web_fragments.fragment import Fragment
+except:
+    from xblock.fragment import Fragment
 
 
 def generate_fields(cls):
@@ -339,13 +339,14 @@ class AcidParentBlock(AcidBlock):
             local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
         ))
         try:
-            frag.add_frag_resources(acid_fragment)
-            frag.add_frags_resources(rendered_children)
-        except:
             frag.add_fragment_resources(acid_fragment)
 
             for rendered_child in rendered_children:
                 frag.add_fragment_resources(rendered_child)
+
+        except:
+            frag.add_frag_resources(acid_fragment)
+            frag.add_frags_resources(rendered_children)
 
         frag.add_javascript(self.resource_string('static/js/acid_parent.js'))
         frag.initialize_js('AcidParentBlock')
