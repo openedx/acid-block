@@ -10,9 +10,10 @@ from mako.lookup import TemplateLookup
 from xblock.core import XBlock, XBlockAside
 from xblock.fields import Dict, Scope
 
+# xblock.fragment is deprecated and no longer supported.
 try:
     from web_fragments.fragment import Fragment
-except:
+except:  # For backward compatibility
     from xblock.fragment import Fragment
 
 
@@ -338,13 +339,13 @@ class AcidParentBlock(AcidBlock):
             rendered_children=(fragment.content for fragment in rendered_children),
             local_resource_url=self.runtime.local_resource_url(self, 'public/test_data.json'),
         ))
-        try:
+        try:  # Add fragment resources using web_fragments.fragment
             frag.add_fragment_resources(acid_fragment)
 
             for rendered_child in rendered_children:
                 frag.add_fragment_resources(rendered_child)
 
-        except:
+        except:  # Add fragment resources using deprecated xblock.fragment for backward compatibility
             frag.add_frag_resources(acid_fragment)
             frag.add_frags_resources(rendered_children)
 
