@@ -13,7 +13,7 @@ from xblock.fields import Dict, Scope
 try:
     from web_fragments.fragment import Fragment
 except:
-    from xblock.fragment import Fragment  # For backward compatibility
+    from xblock.fragment import Fragment  # For backward compatibility with quince and earlier.
 
 
 def generate_fields(cls):
@@ -344,7 +344,7 @@ class AcidParentBlock(AcidBlock):
             for rendered_child in rendered_children:
                 frag.add_fragment_resources(rendered_child)
 
-        except:  # Add fragment resources using deprecated xblock.fragment for backward compatibility
+        except:  # Add fragment resources using deprecated xblock.fragment for backward compatibility for quince and earlier releases
             frag.add_frag_resources(acid_fragment)
             frag.add_frags_resources(rendered_children)
 
