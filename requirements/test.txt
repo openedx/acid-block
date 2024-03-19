@@ -15,9 +15,9 @@ click==8.1.7
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==1.6.0
+code-annotations==1.7.0
     # via edx-lint
-coverage[toml]==7.4.3
+coverage[toml]==7.4.4
     # via pytest-cov
 dill==0.3.8
     # via pylint
