@@ -3,7 +3,7 @@
 import logging
 import random
 
-import pkg_resources
+import importlib.resources
 import webob
 from lazy import lazy
 from mako.lookup import TemplateLookup
@@ -12,8 +12,10 @@ from xblock.fields import Dict, Scope
 
 try:
     from web_fragments.fragment import Fragment
+    from xblock.utils.resources import ResourceLoader
 except:
     from xblock.fragment import Fragment  # For backward compatibility with quince and earlier.
+    from xblockutils.resources import ResourceLoader
 
 
 def generate_fields(cls):
@@ -74,10 +76,12 @@ class AcidSharedMixin:
         }
     )
 
+    loader = ResourceLoader(__name__)
+
     @lazy
     def template_lookup(self):
         return TemplateLookup(
-            directories=[pkg_resources.resource_filename(__name__, 'static')],
+            directories=[importlib.resources.files('acid') / 'static'],
         )
 
     def render_template(self, path, **kwargs):
@@ -88,8 +92,7 @@ class AcidSharedMixin:
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode("utf8")
+        return self.loader.load_unicode(path)
 
     def setup_storage(self, scope):
         """
