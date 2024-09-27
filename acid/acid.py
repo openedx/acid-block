@@ -12,10 +12,14 @@ from xblock.fields import Dict, Scope
 
 try:
     from web_fragments.fragment import Fragment
-    from xblock.utils.resources import ResourceLoader
 except:
     from xblock.fragment import Fragment  # For backward compatibility with quince and earlier.
+
+try:
+    from xblock.utils.resources import ResourceLoader
+except:
     from xblockutils.resources import ResourceLoader
+
 
 
 def generate_fields(cls):
