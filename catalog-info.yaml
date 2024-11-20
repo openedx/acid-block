@@ -7,6 +7,6 @@ metadata:
   name: "acid-block"
   description: "An XBlock for testing XBlock Runtimes."
 spec:
-  owner: codewithemad
+  owner: "user:codewithemad"
   type: XBlock
   lifecycle: production
