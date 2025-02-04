@@ -4,30 +4,30 @@
 #
 #    make upgrade
 #
-astroid==3.3.6
+astroid==3.3.8
     # via
     #   pylint
     #   pylint-celery
-click==8.1.7
+click==8.1.8
     # via
     #   click-log
     #   code-annotations
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==2.1.0
+code-annotations==2.2.0
     # via edx-lint
-coverage[toml]==7.6.9
+coverage[toml]==7.6.10
     # via pytest-cov
 dill==0.3.9
     # via pylint
-edx-lint==5.4.1
+edx-lint==5.6.0
     # via -r requirements/test.in
 iniconfig==2.0.0
     # via pytest
-isort==5.13.2
+isort==6.0.0
     # via pylint
-jinja2==3.1.4
+jinja2==3.1.5
     # via code-annotations
 markupsafe==3.0.2
     # via jinja2
@@ -41,7 +41,7 @@ platformdirs==4.3.6
     # via pylint
 pluggy==1.5.0
     # via pytest
-pylint==3.3.2
+pylint==3.3.4
     # via
     #   edx-lint
     #   pylint-celery
