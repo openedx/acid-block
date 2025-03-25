@@ -22,7 +22,7 @@ markupsafe==3.0.2
     #   xblock
 python-dateutil==2.9.0.post0
     # via xblock
-pytz==2025.1
+pytz==2025.2
     # via xblock
 pyyaml==6.0.2
     # via xblock
