@@ -18,15 +18,12 @@ $(COMMON_CONSTRAINTS_TXT):
 upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
 upgrade: $(COMMON_CONSTRAINTS_TXT)  ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
 	pip install -q -r requirements/pip_tools.txt
-	pip-compile --upgrade --allow-unsafe --rebuild -o requirements/pip.txt requirements/pip.in
-	pip-compile --upgrade -o requirements/pip_tools.txt requirements/pip_tools.in
-	pip install -qr requirements/pip.txt
+	pip-compile --upgrade --allow-unsafe --rebuild -o requirements/pip_tools.txt requirements/pip_tools.in
 	pip install -qr requirements/pip_tools.txt
 	pip-compile --upgrade -o requirements/base.txt requirements/base.in
 	pip-compile --upgrade -o requirements/test.txt requirements/test.in
 
 requirements: ## install development environment requirements
-	pip install -qr requirements/pip.txt
 	pip install -q -r requirements/pip_tools.txt
 	pip install -qr requirements/base.txt --exists-action w
 	pip-sync requirements/base.txt requirements/constraints.txt requirements/test.txt
