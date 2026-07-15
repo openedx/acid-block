@@ -1,0 +1,69 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8.0"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "acid-xblock"
+description = "Acid XBlock Test"
+readme = "README.md"
+license = "AGPL-3.0"
+license-files = ["LICENSE.TXT"]
+authors = [{name = "edX", email = "oscm@edx.org"}]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.11"
+dynamic = ["version"]
+dependencies = [
+    "XBlock",
+    "Mako",
+    "lazy",
+]
+
+[project.urls]
+Homepage = "https://github.com/openedx/acid-block"
+
+[project.entry-points."xblock.v1"]
+acid = "acid:AcidBlock"
+acid_parent = "acid:AcidParentBlock"
+
+[project.entry-points."xblock_asides.v1"]
+acid_aside = "acid:AcidAside"
+
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+acid = ["static/**/*", "public/**/*"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["tests*", "*.tests*", "spec*", "*.spec*"]
+
+[tool.coverage.run]
+branch = true
+source = ["acid"]
+omit = ["*/tests/*", "*/migrations/*", "*/__pycache__/*", "*/settings.py"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"

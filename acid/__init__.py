@@ -1,3 +1,4 @@
 from .acid import AcidBlock, AcidParentBlock, AcidAside
 
-__version__ = '0.4.1'
+from importlib.metadata import version
+__version__ = version("acid-xblock")
