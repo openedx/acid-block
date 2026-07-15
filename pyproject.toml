@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=64", "setuptools-scm>=8.0"]
-build-backend = "setuptools.backends.legacy:build"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "acid-xblock"
@@ -12,7 +12,6 @@ authors = [{name = "edX", email = "oscm@edx.org"}]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: GNU Affero General Public License v3",
     "Natural Language :: English",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
@@ -67,3 +66,31 @@ exclude_lines = [
 
 [tool.coverage.html]
 directory = "htmlcov"
+
+[dependency-groups]
+test-base = [
+    "pytest",
+    "pytest-cov",
+]
+test = [
+    {include-group = "test-base"},
+]
+quality = [
+    "edx-lint",
+    {include-group = "test"},
+]
+ci = [
+    {include-group = "test"},
+    {include-group = "quality"},
+]
+dev = [
+    {include-group = "ci"},
+]
+
+[tool.edx_lint]
+uv_constraints = []
+
+[tool.uv]
+package = true
+# constraint-dependencies is machine-managed by edx_lint write_uv_constraints — do not edit directly
+constraint-dependencies = []
