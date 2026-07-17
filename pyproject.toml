@@ -1,0 +1,101 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "acid-xblock"
+description = "Acid XBlock Test"
+readme = "README.md"
+license = "AGPL-3.0"
+license-files = ["LICENSE.TXT"]
+authors = [{name = "edX", email = "oscm@edx.org"}]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.11"
+dynamic = ["version"]
+dependencies = [
+    "XBlock",
+    "Mako",
+    "lazy",
+]
+
+[project.urls]
+Homepage = "https://github.com/openedx/acid-block"
+
+[project.entry-points."xblock.v1"]
+acid = "acid:AcidBlock"
+acid_parent = "acid:AcidParentBlock"
+
+[project.entry-points."xblock_asides.v1"]
+acid_aside = "acid:AcidAside"
+
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+acid = ["static/**/*", "public/**/*"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["tests*", "*.tests*", "spec*", "*.spec*"]
+
+[tool.coverage.run]
+branch = true
+source = ["acid"]
+omit = ["*/tests/*", "*/migrations/*", "*/__pycache__/*", "*/settings.py"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[dependency-groups]
+test-base = [
+    "pytest",
+    "pytest-cov",
+]
+test = [
+    {include-group = "test-base"},
+]
+quality = [
+    "edx-lint",
+    {include-group = "test"},
+]
+ci = [
+    {include-group = "test"},
+    {include-group = "quality"},
+]
+dev = [
+    {include-group = "ci"},
+]
+
+[tool.edx_lint]
+uv_constraints = []
+
+[tool.uv]
+package = true
+# constraint-dependencies is machine-managed by edx_lint write_uv_constraints — do not edit directly
+constraint-dependencies = []
+
+[tool.semantic_release]
+allow_zero_version = true
+major_on_zero = false
+build_command = "python -m pip install --upgrade build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build"
