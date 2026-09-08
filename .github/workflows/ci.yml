@@ -1,0 +1,32 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_call:
+
+jobs:
+  run_tests:
+    name: ${{ matrix.toxenv }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        toxenv: [py312-django42, py312-django52, quality]
+
+    steps:
+    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+    - name: Setup uv
+      uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+      with:
+        enable-cache: true
+        python-version: "3.12"
+
+    - name: Install CI dependencies
+      run: uv sync --group ci
+
+    - name: Run Tests
+      run: uv run tox -e ${{ matrix.toxenv }}
