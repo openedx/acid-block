@@ -18,7 +18,7 @@ requirements: ## install development environment requirements
 	uv sync --group dev
 
 quality-python: ## Run python linters
-	uv run pylint --rcfile=pylintrc src/acid
+	uv run pylint src/acid
 
 quality: quality-python ## Run linters
 

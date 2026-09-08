@@ -8,7 +8,7 @@ description = "Acid XBlock Test"
 readme = "README.md"
 license = "AGPL-3.0"
 license-files = ["LICENSE.TXT"]
-authors = [{name = "edX", email = "oscm@edx.org"}]
+authors = [{name = "Open edX Project", email = "oscm@openedx.org"}]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
