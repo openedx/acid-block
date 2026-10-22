@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "acid-xblock"
 description = "Acid XBlock Test"
 readme = "README.md"
-license = "AGPL-3.0"
+license = "AGPL-3.0-only"
 license-files = ["LICENSE.TXT"]
 authors = [{name = "Open edX Project", email = "oscm@openedx.org"}]
 classifiers = [
