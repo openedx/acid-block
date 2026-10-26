@@ -26,7 +26,7 @@ jobs:
         python-version: "3.12"
 
     - name: Install CI dependencies
-      run: uv sync --group ci
+      run: uv sync --locked --group ci
 
     - name: Run Tests
       run: uv run tox -e ${{ matrix.toxenv }}

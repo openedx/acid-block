@@ -18,11 +18,11 @@ requirements: ## install development environment requirements
 	uv sync --group dev
 
 quality-python: ## Run python linters
-	uv run pylint src/acid
+	pylint src/acid
 
 quality: quality-python ## Run linters
 
 test-python: clean ## run tests using pytest and generate coverage report
-	uv run pytest
+	pytest
 
 test: test-python ## run tests
