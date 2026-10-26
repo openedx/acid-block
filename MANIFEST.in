@@ -1,3 +1,6 @@
-recursive-include acid/static *
-recursive-include acid/public *
-include requirements/constraints.txt
+recursive-include src/acid/static *
+recursive-include src/acid/public *
+
+prune .github
+prune htmlcov
+exclude .coverage coverage.xml
