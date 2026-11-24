@@ -110,7 +110,10 @@ package = true
 # separate groups.
 default-groups = []
 # constraint-dependencies is machine-managed by edx_lint write_uv_constraints — do not edit directly
-constraint-dependencies = []
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+]
 conflicts = [
     [
         {group = "django42"},
